@@ -40,7 +40,7 @@ last_day_number = last_day.mday
 if ((year[:a]==Date.today.year || year == {}) && (month[:b]==Date.today.month || month == {}))
   first_day_number.upto(last_day_number) do |x|
     if x == Date.today.mday
-      printf("\e[31m%2d\s",x)
+      printf("\e[31m%2d\e[0m\s", x);
     else  
       printf("%2d\s",x)
     end
