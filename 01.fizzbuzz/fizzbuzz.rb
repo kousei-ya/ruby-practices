@@ -1,13 +1,13 @@
 #!/usr/bin/env ruby
 
-(1..20).each {|num|
-  if num % 3 == 0 && num % 5 == 0
-    puts "FizzBuzz"
-  elsif num % 3 == 0
-    puts "Fizz"
-  elsif num % 5 == 0
-    puts "Buzz"
-  else 
+(1..20).each do |num|
+  if (num % 3).zero? && (num % 5).zero?
+    puts 'FizzBuzz'
+  elsif (num % 3).zero?
+    puts 'Fizz'
+  elsif (num % 5).zero?
+    puts 'Buzz'
+  else
     puts num
   end
-}
+end
