@@ -39,7 +39,7 @@ last_day_number = last_day.mday
 if ((year==today.year) && (month==today.month))
   (first_day..last_day).each do |date|
     if date == today
-      printf("\e[31m%2d\e[0m\s", date.mday);
+      printf("\e[7m%2d\e[0m\s", date.mday);
     else  
       printf("%2d\s",date.mday)
     end
