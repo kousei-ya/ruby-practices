@@ -56,6 +56,4 @@ else
   end
 end
 
-2.times{
-    print "\n"
-}
+print "\n"
