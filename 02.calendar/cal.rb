@@ -33,9 +33,6 @@ puts "日 月 火 水 木 金 土"
 
 first_day.wday.times{print "\s\s\s"}
 
-first_day_number = first_day.mday
-last_day_number = last_day.mday
-
 if ((year==today.year) && (month==today.month))
   (first_day..last_day).each do |date|
     if date == today
