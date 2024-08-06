@@ -36,21 +36,21 @@ first_day.wday.times{print "\s\s\s"}
 first_day_number = first_day.mday
 last_day_number = last_day.mday
 
-if ((options[:year]==today.year || year == {}) && (options[:month]==today.month || month == {}))
-  first_day_number.upto(last_day_number) do |x|
-    if x == today.mday
-      printf("\e[31m%2d\e[0m\s", x);
+if ((year==today.year) && (month==today.month))
+  (first_day..last_day).each do |date|
+    if date == today
+      printf("\e[31m%2d\e[0m\s", date.mday);
     else  
-      printf("%2d\s",x)
+      printf("%2d\s",date.mday)
     end
-    if (first_day.wday + x) % 7 == 0
+    if date.saturday?
       print "\n"
     end
   end
 else
-  first_day_number.upto(last_day_number) do |x|
-    printf("%2d\s",x)
-    if (first_day.wday + x) % 7 == 0
+  (first_day..last_day).each do |date|
+    printf("%2d\s",date.mday)
+      if date.saturday?
       print "\n"
     end
   end
