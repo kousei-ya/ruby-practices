@@ -11,13 +11,15 @@ opt.on("-y VALUE", Integer) {|y| year[:a] = y}
 opt.on("-m VALUE", Integer) {|m| month[:b] = m }
 opt.parse!(ARGV)
 
+  today = Date.today
+
 if year == {}
   if month == {}
-    first_day = Date.new(Date.today.year,Date.today.month)
-    last_day =  Date.new(Date.today.year,Date.today.month,-1)
+    first_day = Date.new(today.year,today.month)
+    last_day =  Date.new(today.year,today.month,-1)
   else
-    first_day = Date.new(Date.today.year,month[:b])
-    last_day =  Date.new(Date.today.year,month[:b],-1)
+    first_day = Date.new(today.year,month[:b])
+    last_day =  Date.new(today.year,month[:b],-1)
   end
 else
   first_day = Date.new(year[:a],month[:b])
@@ -33,9 +35,9 @@ first_day.wday.times{print "\s\s\s"}
 first_day_number = first_day.mday
 last_day_number = last_day.mday
 
-if ((year[:a]==Date.today.year || year == {}) && (month[:b]==Date.today.month || month == {}))
+if ((year[:a]==today.year || year == {}) && (month[:b]==today.month || month == {}))
   first_day_number.upto(last_day_number) do |x|
-    if x == Date.today.mday
+    if x == today.mday
       printf("\e[31m%2d\e[0m\s", x);
     else  
       printf("%2d\s",x)
