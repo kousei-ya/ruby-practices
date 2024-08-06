@@ -3,28 +3,29 @@
 require "optparse"
 require "date"
 
-year = {}
-month = {}
+options = {}
 
 opt = OptionParser.new
-opt.on("-y VALUE", Integer) {|y| year[:a] = y}
-opt.on("-m VALUE", Integer) {|m| month[:b] = m }
+opt.on("-y VALUE", Integer) {|y| options[:year] = y}
+opt.on("-m VALUE", Integer) {|m| options[:month] = m }
 opt.parse!(ARGV)
 
-  today = Date.today
+today = Date.today
 
-if year == {}
-  if month == {}
-    first_day = Date.new(today.year,today.month)
-    last_day =  Date.new(today.year,today.month,-1)
-  else
-    first_day = Date.new(today.year,month[:b])
-    last_day =  Date.new(today.year,month[:b],-1)
-  end
+if options[:year] != nil
+  year = options[:year]
 else
-  first_day = Date.new(year[:a],month[:b])
-  last_day = Date.new(year[:a],month[:b],-1)
+  year = today.year
 end
+
+if options[:month] != nil
+  month = options[:month]
+else
+  month = today.month
+end
+
+first_day = Date.new(year,month)
+last_day = Date.new(year,month,-1)
 
 puts "      #{first_day.mon}月 #{first_day.year}"
 
@@ -35,7 +36,7 @@ first_day.wday.times{print "\s\s\s"}
 first_day_number = first_day.mday
 last_day_number = last_day.mday
 
-if ((year[:a]==today.year || year == {}) && (month[:b]==today.month || month == {}))
+if ((options[:year]==today.year || year == {}) && (options[:month]==today.month || month == {}))
   first_day_number.upto(last_day_number) do |x|
     if x == today.mday
       printf("\e[31m%2d\e[0m\s", x);
