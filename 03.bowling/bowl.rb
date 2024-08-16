@@ -3,45 +3,34 @@
 
 score = ARGV[0]
 scores = score.split(',')
-shots = []
-scores.each do |s|
-  if s == 'X'
-    shots << 10
-    shots << 0
-  else
-    shots << s.to_i
-  end
+
+shots = scores.flat_map do |s|
+  s == 'X' ? [10, 0] : s.to_i
 end
 
 frames = []
-shots.each_slice(2) do |s|
-  frames << if s[0] == 10
-              [s[0]]
-            else
-              s
-            end
+frames = shots.each_slice(2).map do |s|
+  s[0] == 10 ? [s[0]] : s
 end
 
-point = 0
-
-(0..frames.size - 1).each do |i|
-  point += if i < 9 # 9フレームまでの処理
-             if (frames[i][0] == 10) && !frames[i + 1].nil? # ストライク
-               if (frames[i + 1][0] == 10) && !frames[i + 2].nil? # 次もストライク
-                 10 + frames[i + 1][0] + frames[i + 2][0]
-               else
-                 10 + frames[i + 1][0] + frames[i + 1][1] # ストライク(次がストライクでない)
-               end
-             elsif (frames[i][0] + frames[i][1] == 10) && !frames[i + 1].nil? # スペア
-               10 + frames[i + 1][0]
-             else
-               frames[i][0] + frames[i][1]
-             end
-           elsif !frames[i][1].nil?
-             frames[i][0] + frames[i][1]
-           else
-             frames[i][0]
-           end
+point = frames.each_with_index.sum do |current_frame, i|
+  next_frame = frames[i + 1]
+  next_next_fram = frames[i + 2]
+  if i < 9
+    if current_frame[0] == 10
+      if (next_frame[0] == 10) && !next_next_fram.nil?
+        10 + next_frame[0] + next_next_fram[0]
+      else
+        10 + next_frame[0] + next_frame[1]
+      end
+    elsif (current_frame[0] + current_frame[1] == 10) && !next_frame.nil?
+      10 + next_frame[0]
+    else
+      current_frame[0] + current_frame[1]
+    end
+  else
+    current_frame.sum
+  end
 end
 
 puts point
