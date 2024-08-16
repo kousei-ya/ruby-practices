@@ -35,22 +35,19 @@ first_day.wday.times{print "\s\s\s"}
 
 if ((year==today.year) && (month==today.month))
   (first_day..last_day).each do |date|
-    if date == today
-      printf("\e[7m%2d\e[0m\s", date.mday);
-    else  
-      printf("%2d\s",date.mday)
-    end
-    if date.saturday?
-      print "\n"
-    end
+    print ("\e[7m#{date.mday}") if date == today
+    print("\e[0m") if date == today
+    print "#{date.mday}".rjust(2) if date != today
+    print("\s")
+    puts if date.saturday?
   end
 else
   (first_day..last_day).each do |date|
-    printf("%2d\s",date.mday)
-      if date.saturday?
-      print "\n"
-    end
+
+    print "#{date.mday}".rjust(2)
+    print("\s")
+    puts if date.saturday?
   end
 end
 
-print "\n"
+puts
