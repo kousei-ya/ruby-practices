@@ -33,21 +33,12 @@ puts "日 月 火 水 木 金 土"
 
 first_day.wday.times{print "\s\s\s"}
 
-if ((year==today.year) && (month==today.month))
-  (first_day..last_day).each do |date|
-    print ("\e[7m#{date.mday}") if date == today
-    print("\e[0m") if date == today
-    print "#{date.mday}".rjust(2) if date != today
-    print("\s")
-    puts if date.saturday?
-  end
-else
-  (first_day..last_day).each do |date|
-
-    print "#{date.mday}".rjust(2)
-    print("\s")
-    puts if date.saturday?
-  end
+(first_day..last_day).each do |date|
+  print ("\e[7m#{date.mday}") if date == today
+  print("\e[0m") if date == today
+  print "#{date.mday}".rjust(2) if date != today
+  print("\s")
+  puts if date.saturday?
 end
 
 puts
