@@ -34,8 +34,7 @@ puts "日 月 火 水 木 金 土"
 first_day.wday.times{print "\s\s\s"}
 
 (first_day..last_day).each do |date|
-  print ("\e[7m#{date.mday}") if date == today
-  print("\e[0m") if date == today
+  print ("\e[7m#{date.mday}\e[0m") if date == today
   print "#{date.mday}".rjust(2) if date != today
   print("\s")
   puts if date.saturday?
