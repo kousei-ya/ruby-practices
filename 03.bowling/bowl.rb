@@ -17,7 +17,12 @@ point = frames.each_with_index.sum do |current_frame, i|
   after_next_frame = frames[i + 2]
   if i < 9
     if current_frame[0] == 10
-      10 + frames[i+1][0] + frames[i+2][0]
+      if !after_next_frame.nil?
+        bonus = next_frame + after_next_frame
+      else
+        bonus = next_frame
+      end
+      10 + bonus[0] + bonus[1]
     elsif current_frame.sum == 10
       10 + next_frame[0]
     else
