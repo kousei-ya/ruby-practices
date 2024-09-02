@@ -11,7 +11,6 @@ def main
 end
 
 def print_files(parts_files)
-arrange = 20
   parts_files.each do |column|
     column.each do |row|
       print row.to_s.ljust(ARRANGE) 
