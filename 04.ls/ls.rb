@@ -12,7 +12,7 @@ def main
   opt.parse!(ARGV)
 
   files = if options[:all]
-            Dir.entries('.').sort
+            Dir.glob("*",File::FNM_DOTMATCH)
           else
             Dir.glob('*')
           end
