@@ -11,11 +11,8 @@ def main
   opt.on('-a', '--all') { |a| options[:all] = a }
   opt.parse!(ARGV)
 
-  files = if options[:all]
-            Dir.glob("*",File::FNM_DOTMATCH)
-          else
-            Dir.glob('*')
-          end
+  sarg = options[:all] ? File::FNM_DOTMATCH : 0
+  files = Dir.glob('*', sarg)
   column = 3
   row = files.size.ceildiv(column)
   parts_files = files.each_slice(row).to_a
