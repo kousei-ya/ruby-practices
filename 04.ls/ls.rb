@@ -9,10 +9,12 @@ def main
   options = {}
   opt = OptionParser.new
   opt.on('-a', '--all') { |a| options[:all] = a }
+  opt.on('-r', '--reverse') { |r| options[:reverse] = r }
   opt.parse!(ARGV)
 
   sarg = options[:all] ? File::FNM_DOTMATCH : 0
   files = Dir.glob('*', sarg)
+  files = files.reverse if options[:reverse]
   column = 3
   row = files.size.ceildiv(column)
   parts_files = files.each_slice(row).to_a
