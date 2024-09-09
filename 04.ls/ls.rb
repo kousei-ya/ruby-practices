@@ -39,7 +39,7 @@ def detail_files(files)
     file_access_info = file_info.mode.to_s(8)
     print file_info.ftype == 'file' ? '-' : 'd'
     file_access_info.prepend('0') if file_access_info.size == 5
-    file_access_info_print(file_access_info)
+    file_access_print(file_access_info)
     print "\s#{file_info.nlink}\s"
     print "#{Etc.getpwuid(file_info.uid).name}\s"
     print "#{Etc.getgrgid(file_info.gid).name}\s"
@@ -61,7 +61,7 @@ def total_count(files)
   total
 end
 
-def file_access_info_print(file_access_info)
+def file_access_print(file_access_info)
   3.times do |i|
     case file_access_info[3 + i]
     when '0'
