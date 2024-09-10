@@ -2,7 +2,6 @@
 # frozen_string_literal: true
 
 require 'optparse'
-require 'date'
 require 'etc'
 
 ARRANGE = 20
@@ -18,7 +17,6 @@ def main
   sarg = options[:all] ? File::FNM_DOTMATCH : 0
   files = Dir.glob('*', sarg)
   files = files.reverse if options[:reverse]
-  detail_files(files) if options[:long]
 
   column = 3
   row = files.size.ceildiv(column)
@@ -29,54 +27,50 @@ def main
     order << nil while order.size < max_size
   end
   transpose_array = arrange_array.transpose
-  print_files(transpose_array) unless options[:long]
+  options[:long] ? detail_files(files) : print_files(transpose_array)
 end
 
 def detail_files(files)
   puts "total #{total_count(files)}"
   files.each do |file|
     file_info = File.stat(file)
-    file_access_info = file_info.mode.to_s(8)
+    file_access_info = (file_info.mode & 0o777).to_s(8).split('')
     print file_info.ftype == 'file' ? '-' : 'd'
-    file_access_info.prepend('0') if file_access_info.size == 5
-    file_access_print(file_access_info)
+    change_file_access = file_access_info.map { |part| access_print_change(part) }.join
+    print change_file_access
     print "\s#{file_info.nlink}\s"
-    print "#{Etc.getpwuid(file_info.uid).name}\s"
-    print "#{Etc.getgrgid(file_info.gid).name}\s"
+    print_name(file_info)
     print "#{file_info.size}\s".rjust(5)
-    print "#{file_info.mtime.strftime('%b')}\s"
-    print "#{file_info.mtime.strftime('%e')}\s"
-    print "#{file_info.mtime.strftime('%H:%M')}\s"
+    last_updated_time(file_info)
     print file
     puts
   end
 end
 
 def total_count(files)
-  files.sum {|file| File.stat(file).blocks / 2}
+  files.sum { |file| File.stat(file).blocks / 2 }
 end
 
-def file_access_print(file_access_info)
-  3.times do |i|
-    case file_access_info[3 + i]
-    when '0'
-      print '---'
-    when '1'
-      print '--x'
-    when '2'
-      print '-w-'
-    when '3'
-      print '-wx'
-    when '4'
-      print 'r--'
-    when '5'
-      print 'r-x'
-    when '6'
-      print 'rw-'
-    when '7'
-      print 'rwx'
-    end
-  end
+def access_print_change(part)
+  { '0' => '---',
+    '1' => '--x',
+    '2' => '-w-',
+    '3' => '-wx',
+    '4' => 'r--',
+    '5' => 'r-x',
+    '6' => 'rw-',
+    '7' => 'rwx' }[part]
+end
+
+def print_name(file_info)
+  print "#{Etc.getpwuid(file_info.uid).name}\s"
+  print "#{Etc.getgrgid(file_info.gid).name}\s"
+end
+
+def last_updated_time(file_info)
+  print "#{file_info.mtime.strftime('%b')}\s"
+  print "#{file_info.mtime.strftime('%e')}\s"
+  print "#{file_info.mtime.strftime('%H:%M')}\s"
 end
 
 def print_files(transpose_array)
