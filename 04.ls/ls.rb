@@ -53,12 +53,7 @@ def detail_files(files)
 end
 
 def total_count(files)
-  total = 0
-  files.each do |file|
-    file_info = File.stat(file)
-    total += file_info.blocks / 2
-  end
-  total
+  files.sum {|file| File.stat(file).blocks / 2}
 end
 
 def file_access_print(file_access_info)
