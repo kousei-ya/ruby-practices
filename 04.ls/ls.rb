@@ -17,17 +17,20 @@ def main
   sarg = options[:all] ? File::FNM_DOTMATCH : 0
   files = Dir.glob('*', sarg)
   files = files.reverse if options[:reverse]
+  if options[:long].nil?
+    column = 3
+    row = files.size.ceildiv(column)
+    parts_files = files.each_slice(row).to_a
 
-  column = 3
-  row = files.size.ceildiv(column)
-  parts_files = files.each_slice(row).to_a
-
-  max_size = parts_files.max_by(&:size).size
-  arrange_array = parts_files.each do |order|
-    order << nil while order.size < max_size
+    max_size = parts_files.max_by(&:size).size
+    arrange_array = parts_files.each do |order|
+      order << nil while order.size < max_size
+    end
+    transpose_array = arrange_array.transpose
+    print_files(transpose_array)
+  else
+    detail_files(files)
   end
-  transpose_array = arrange_array.transpose
-  options[:long] ? detail_files(files) : print_files(transpose_array)
 end
 
 def detail_files(files)
