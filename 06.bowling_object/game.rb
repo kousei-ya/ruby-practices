@@ -15,8 +15,8 @@ class Game
     @converted_shots = shots.convert_score
     frames = Frame.new(@converted_shots)
     converted_frames = frames.convert_shot
-    #calculation(converted_frames) #テストの際に使用
-    puts "#{calculation(converted_frames)}" #テストの際はコメントアウト
+    # calculation(converted_frames) #テストの際に使用
+    puts calculation(converted_frames) # テストの際はコメントアウト
   end
 
   def calculation(converted_frames)
