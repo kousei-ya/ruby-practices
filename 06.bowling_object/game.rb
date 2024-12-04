@@ -11,14 +11,14 @@ class Game
   end
 
   def execute
-    converted_frames = @frames.convert_shot
-    calculation(converted_frames)
+    devided_two_shot = @frames.convert_shot
+    calculation(devided_two_shot)
   end
 
-  def calculation(converted_frames)
-    converted_frames.each_with_index.sum do |current_frame, i|
-      next_frame = converted_frames[i + 1]
-      after_next_frame = converted_frames[i + 2]
+  def calculation(devided_two_shot)
+    devided_two_shot.each_with_index.sum do |current_frame, i|
+      next_frame = devided_two_shot[i + 1]
+      after_next_frame = devided_two_shot[i + 2]
       if i < 9
         if current_frame[0] == 10
           10 + [*next_frame, *after_next_frame].take(2).sum
