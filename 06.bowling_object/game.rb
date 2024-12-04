@@ -12,8 +12,7 @@ class Game
 
   def execute
     converted_frames = @frames.convert_shot
-    calculation(converted_frames) #テストの際に使用
-    #puts calculation(converted_frames) # テストの際はコメントアウト
+    calculation(converted_frames)
   end
 
   def calculation(converted_frames)
@@ -41,4 +40,4 @@ if ARGV[0].nil? || ARGV[0].empty?
 end
 
 game = Game.new(ARGV[0])
-game.execute
+puts game.execute
