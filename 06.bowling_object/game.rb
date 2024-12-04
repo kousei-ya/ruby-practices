@@ -6,12 +6,12 @@ class Game
   attr_reader :converted_shots
 
   def initialize(score)
-    @scores = score.split(',')
+    scores = score.split(',')
+    @frames = Frame.new(scores)
   end
 
   def execute
-    frames = Frame.new(@scores)
-    converted_frames = frames.convert_shot
+    converted_frames = @frames.convert_shot
     calculation(converted_frames) #テストの際に使用
     #puts calculation(converted_frames) # テストの際はコメントアウト
   end
