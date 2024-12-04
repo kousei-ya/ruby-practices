@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-require_relative 'shot'
 require_relative 'frame'
 
 class Game
@@ -10,13 +9,11 @@ class Game
     @scores = score.split(',')
   end
 
-  def execution
-    shots = Shot.new(@scores)
-    @converted_shots = shots.convert_score
-    frames = Frame.new(@converted_shots)
+  def execute
+    frames = Frame.new(@scores)
     converted_frames = frames.convert_shot
-    # calculation(converted_frames) #テストの際に使用
-    puts calculation(converted_frames) # テストの際はコメントアウト
+    calculation(converted_frames) #テストの際に使用
+    #puts calculation(converted_frames) # テストの際はコメントアウト
   end
 
   def calculation(converted_frames)
@@ -44,4 +41,4 @@ if ARGV[0].nil? || ARGV[0].empty?
 end
 
 game = Game.new(ARGV[0])
-game.execution
+game.execute
