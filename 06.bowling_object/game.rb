@@ -4,8 +4,8 @@ require_relative 'frame'
 
 class Game
   def initialize(score)
-    frame = Frame.new(score)
-    @frames = frame.convert_shot
+    score = Frames.new(score)
+    @frames = score.convert_shots
   end
 
   def calculate

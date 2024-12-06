@@ -2,15 +2,15 @@
 
 require_relative 'shot'
 
-class Frame
+class Frames
   def initialize(score)
-    shot = Shot.new(score)
-    @shots = shot.convert_score
+    score = Shots.new(score)
+    @shots = score.convert_score
   end
 
-  def convert_shot
-    @shots.each_slice(2).map do |converted_to_number|
-      converted_to_number[0] == 10 ? [converted_to_number[0]] : converted_to_number
+  def convert_shots
+    @shots.each_slice(2).map do |converted_shot|
+      converted_shot[0] == 10 ? [converted_shot[0]] : converted_shot
     end
   end
 end
