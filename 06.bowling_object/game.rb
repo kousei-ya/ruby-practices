@@ -3,22 +3,15 @@
 require_relative 'frame'
 
 class Game
-  attr_reader :converted_shots
-
   def initialize(score)
-    scores = score.split(',')
-    @frames = Frame.new(scores)
+    frame = Frame.new(score)
+    @frames = frame.convert_shot
   end
 
-  def execute
-    devided_two_shot = @frames.convert_shot
-    calculation(devided_two_shot)
-  end
-
-  def calculation(devided_two_shot)
-    devided_two_shot.each_with_index.sum do |current_frame, i|
-      next_frame = devided_two_shot[i + 1]
-      after_next_frame = devided_two_shot[i + 2]
+  def calculation
+    @frames.each_with_index.sum do |current_frame, i|
+      next_frame = @frames[i + 1]
+      after_next_frame = @frames[i + 2]
       if i < 9
         if current_frame[0] == 10
           10 + [*next_frame, *after_next_frame].take(2).sum
@@ -40,4 +33,4 @@ if ARGV[0].nil? || ARGV[0].empty?
 end
 
 game = Game.new(ARGV[0])
-puts game.execute
+puts game.calculation
