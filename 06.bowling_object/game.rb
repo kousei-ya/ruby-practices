@@ -8,7 +8,7 @@ class Game
     @frames = frame.convert_shot
   end
 
-  def calculation
+  def calculate
     @frames.each_with_index.sum do |current_frame, i|
       next_frame = @frames[i + 1]
       after_next_frame = @frames[i + 2]
@@ -33,4 +33,4 @@ if ARGV[0].nil? || ARGV[0].empty?
 end
 
 game = Game.new(ARGV[0])
-puts game.calculation
+puts game.calculate
