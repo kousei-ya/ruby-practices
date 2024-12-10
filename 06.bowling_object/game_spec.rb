@@ -9,7 +9,7 @@ describe Game do
   end
 
   example 'ゼロ' do
-    game = described_class.new('0,0,0,0,0,0,0,0,0,0,0')
+    game = described_class.new('0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0')
     expect(game.calculate).to eq 0
   end
 
@@ -24,7 +24,7 @@ describe Game do
   end
 
   example do
-    game = described_class.new('0,10,1,5,0,0,0,0,X,X,X,5,1,8,1,0,4')
+    game = described_class.new('0,X,1,5,0,0,0,0,X,X,X,5,1,8,1,0,4')
     expect(game.calculate).to eq 107
   end
 
@@ -44,7 +44,7 @@ describe Game do
   end
 
   example do
-    game = described_class.new('X,0,0,X,0,0,X,0,0,X,0,0,X,0,0 ')
+    game = described_class.new('X,0,0,X,0,0,X,0,0,X,0,0,X,0,0')
     expect(game.calculate).to eq 50
   end
 end
