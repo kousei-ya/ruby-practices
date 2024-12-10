@@ -2,15 +2,24 @@
 
 require_relative 'shot'
 
-class Frames
-  def initialize(score)
-    score = Shots.new(score)
-    @shots = score.convert_score
+class Frame
+  def initialize(first_shot = nil, second_shot = nil, third_shot = nil)
+    @shots = [
+      Shot.new(first_shot),
+      second_shot ? Shot.new(second_shot) : nil,
+      third_shot ? Shot.new(third_shot) : nil
+    ].compact
   end
 
-  def convert_shots
-    @shots.each_slice(2).map do |converted_shot|
-      converted_shot[0] == 10 ? [converted_shot[0]] : converted_shot
-    end
+  def score
+    @shots.map(&:score)
+  end
+
+  def strike?
+    score[0] == 10
+  end
+
+  def spare?
+    score.sum == 10 && score[0] != 10
   end
 end
