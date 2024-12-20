@@ -39,14 +39,22 @@ class Detail
       '7' => 'rwx' }[part]
   end
 
+  def print_attributes(attributes)
+    attributes.each { |attribute| print "#{attribute} " }
+  end
+
   def print_name(file_info)
-    print "#{Etc.getpwuid(file_info.uid).name}\s"
-    print "#{Etc.getgrgid(file_info.gid).name}\s"
+    print_attributes([
+                       Etc.getpwuid(file_info.uid).name,
+                       Etc.getgrgid(file_info.gid).name
+                     ])
   end
 
   def last_updated_time(file_info)
-    print "#{file_info.mtime.strftime('%b')}\s"
-    print "#{file_info.mtime.strftime('%e')}\s"
-    print "#{file_info.mtime.strftime('%H:%M')}\s"
+    print_attributes([
+                       file_info.mtime.strftime('%b'),
+                       file_info.mtime.strftime('%e'),
+                       file_info.mtime.strftime('%H:%M')
+                     ])
   end
 end
