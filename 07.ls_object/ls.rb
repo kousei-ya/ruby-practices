@@ -2,8 +2,8 @@
 # frozen_string_literal: true
 
 require_relative 'argparser'
-require_relative 'standard'
-require_relative 'detail'
+require_relative 'column_file_display'
+require_relative 'file_detail_display'
 
 class Ls
   def initialize
@@ -16,9 +16,9 @@ class Ls
     @files = Dir.glob('*', sarg)
     @files = @files.reverse if @options[:reverse]
     view_files = if @options[:long].nil?
-                   Standard.new(@files)
+                   ColumnFileDisplay.new(@files)
                  else
-                   Detail.new(@files)
+                   FileDetailDisplay.new(@files)
                  end
     view_files.print_files
   end

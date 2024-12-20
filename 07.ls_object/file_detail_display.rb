@@ -2,7 +2,7 @@
 
 require 'etc'
 
-class Detail
+class FileDetailDisplay
   def initialize(files)
     @files = files
   end

@@ -2,7 +2,7 @@
 
 ARRANGE = 20
 
-class Standard
+class ColumnFileDisplay
   def initialize(files, column = 3)
     @files = files
     @column = column
