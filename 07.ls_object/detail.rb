@@ -7,7 +7,7 @@ class Detail
     @files = files
   end
 
-  def detail_files_print
+  def print_files
     puts "total #{total_count(@files)}"
     @files.each do |file|
       file_info = File.stat(file)

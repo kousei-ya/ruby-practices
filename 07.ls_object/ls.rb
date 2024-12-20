@@ -15,13 +15,12 @@ class Ls
     sarg = @options[:all] ? File::FNM_DOTMATCH : 0
     @files = Dir.glob('*', sarg)
     @files = @files.reverse if @options[:reverse]
-    if @options[:long].nil?
-      view_files = Standard.new(@files)
-      view_files.display_files
-    else
-      detail_files = Detail.new(@files)
-      detail_files.detail_files_print
-    end
+    view_files = if @options[:long].nil?
+                   Standard.new(@files)
+                 else
+                   Detail.new(@files)
+                 end
+    view_files.print_files
   end
 end
 

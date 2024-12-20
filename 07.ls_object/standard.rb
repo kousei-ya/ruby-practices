@@ -3,11 +3,12 @@
 ARRANGE = 20
 
 class Standard
-  def initialize(files)
+  def initialize(files, column = 3)
     @files = files
+    @column = column
   end
 
-  def display_files
+  def print_files
     transpose_array = divide_files(@files)
     transpose_array.each do |column|
       column.each do |row|
@@ -18,8 +19,7 @@ class Standard
   end
 
   def divide_files(files)
-    column = 3
-    row = files.size.ceildiv(column)
+    row = files.size.ceildiv(@column)
     parts_files = files.each_slice(row).to_a
 
     max_size = parts_files.max_by(&:size).size
