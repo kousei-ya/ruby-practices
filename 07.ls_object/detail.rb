@@ -24,6 +24,8 @@ class Detail
     end
   end
 
+  private
+
   def total_count(files)
     files.sum { |file| File.stat(file).blocks / 2 }
   end

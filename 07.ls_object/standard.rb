@@ -18,6 +18,8 @@ class Standard
     end
   end
 
+  private
+
   def divide_files(files)
     row = files.size.ceildiv(@column)
     parts_files = files.each_slice(row).to_a
