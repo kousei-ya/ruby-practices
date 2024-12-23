@@ -53,10 +53,8 @@ class FileDetailDisplay
   end
 
   def last_updated_time(file_info)
-    print_attributes([
-                       file_info.mtime.strftime('%b'),
-                       file_info.mtime.strftime('%e'),
-                       file_info.mtime.strftime('%H:%M')
-                     ])
+    formats = ['%b', '%e', '%H:%M']
+    attributes = formats.map { |format| file_info.mtime.strftime(format) }
+    print_attributes(attributes)
   end
 end
