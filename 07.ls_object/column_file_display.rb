@@ -8,7 +8,7 @@ class ColumnFileDisplay
     @column = column
   end
 
-  def print_files
+  def show
     transpose_array = divide_files(@files)
     transpose_array.each do |column|
       column.each do |row|

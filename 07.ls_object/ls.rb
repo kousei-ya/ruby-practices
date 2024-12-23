@@ -20,7 +20,7 @@ class Ls
                  else
                    FileDetailDisplay.new(@files)
                  end
-    view_files.print_files
+    view_files.show
   end
 end
 
