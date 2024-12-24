@@ -46,10 +46,7 @@ class FileDetailDisplay
   end
 
   def print_name(file_info)
-    print_attributes([
-                       Etc.getpwuid(file_info.uid).name,
-                       Etc.getgrgid(file_info.gid).name
-                     ])
+    print_attributes([Etc.getpwuid(file_info.uid), Etc.getgrgid(file_info.gid)].map(&:name))
   end
 
   def last_updated_time(file_info)
