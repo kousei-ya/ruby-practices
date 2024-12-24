@@ -19,8 +19,8 @@ class Ls
     sarg = @options[:all] ? File::FNM_DOTMATCH : 0
     @files = Dir.glob('*', sarg)
     @files = @files.reverse if @options[:reverse]
-    class_namae = @options[:long] ? FileDetailDisplay : ColumnFileDisplay
-    view_files = class_namae.new(@files)
+    display_class = @options[:long] ? FileDetailDisplay : ColumnFileDisplay
+    view_files = display_class.new(@files)
     view_files.show
   end
 end
